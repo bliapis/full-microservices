@@ -32,6 +32,16 @@ namespace Catalog.API.Data
                 },
                 new Product()
                 {
+                    Id = "602d2149e773f2a3990b47fb",
+                    Name = "Galaxy S20",
+                    Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
+                    Description = "256gb, black, the big one",
+                    ImageFile = "product-7.png",
+                    Price = 850.00M,
+                    Category = "Smart Phone"
+                },
+                new Product()
+                {
                     Id = "602d2149e773f2a3990b47f6",
                     Name = "Samsung 10",
                     Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
