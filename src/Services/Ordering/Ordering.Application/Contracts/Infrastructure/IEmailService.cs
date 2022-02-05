@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Ordering.Application.Models;
+using System.Threading.Tasks;
 
 namespace Ordering.Application.Contracts.Infrastructure
 {
