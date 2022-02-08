@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Ordering.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,14 @@ namespace Ordering.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordering.API", Version = "v1" });
             });
+
+            ApplicationServicesRegistration.AddApplicationSerevices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
