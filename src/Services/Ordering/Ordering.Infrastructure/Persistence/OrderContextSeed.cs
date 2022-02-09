@@ -13,7 +13,9 @@ namespace Ordering.Infrastructure.Persistence
             if (!orderContext.Orders.Any())
             {
                 orderContext.Orders.AddRange(GetPreconfiguredOrders());
+
                 await orderContext.SaveChangesAsync();
+
                 logger.LogInformation("Seed database associated with context {DbContextName}", typeof(OrderContext).Name);
             }
         }
