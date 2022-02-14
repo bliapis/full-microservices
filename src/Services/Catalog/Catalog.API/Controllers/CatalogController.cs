@@ -26,7 +26,10 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
+            _logger.LogInformation("Starting Catalog => GetProducts");
+
             var products = await _repository.GetProducts();
+
             return Ok(products);
         }
 
@@ -35,12 +38,17 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> GetProductById(string id)
         {
+            _logger.LogInformation("Starting Catalog => GetProductById");
+
             var product = await _repository.GetProduct(id);
+
             if (product == null)
             {
                 _logger.LogError($"Product with id: {id}, not found.");
+
                 return NotFound();
             }
+
             return Ok(product);
         }
 
@@ -49,7 +57,10 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
         {
+            _logger.LogInformation("Starting Catalog => GetProductByCategory");
+
             var products = await _repository.GetProductByCategory(category);
+
             return Ok(products);
         }
 
@@ -57,6 +68,8 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
         {
+            _logger.LogInformation("Starting Catalog => CreateProduct");
+
             await _repository.CreateProduct(product);
 
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
@@ -66,6 +79,8 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] Product product)
         {
+            _logger.LogInformation("Starting Catalog => UpdateProduct");
+
             return Ok(await _repository.UpdateProduct(product));
         }
 
@@ -73,6 +88,8 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteProductById(string id)
         {
+            _logger.LogInformation("Starting Catalog => DeleteProductById");
+
             return Ok(await _repository.DeleteProduct(id));
         }
     }
