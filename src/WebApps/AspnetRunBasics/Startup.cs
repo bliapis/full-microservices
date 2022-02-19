@@ -9,10 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using Polly;
-using Polly.Extensions.Http;
 using System;
-using System.Net.Http;
 
 namespace AspnetRunBasics
 {
@@ -36,6 +33,9 @@ namespace AspnetRunBasics
 
             services.AddHttpClient<IOrderService, OrderService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
+
+            services.AddHttpClient<IAuthService, AuthService>(c =>
+                c.BaseAddress = new Uri(Configuration["AuthorizationSettings:AuthorizationUri"]));
 
             services.AddRazorPages();
 

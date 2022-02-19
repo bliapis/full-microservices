@@ -36,6 +36,7 @@ namespace Shopping.Aggregator
                 c.BaseAddress = new Uri(Configuration["ApiSettings:OrderingUrl"]));
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shopping.Aggregator", Version = "v1" });
