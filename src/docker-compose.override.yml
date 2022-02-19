@@ -81,9 +81,11 @@ services:
       - "CacheSettings:ConnectionString=basketdb:6379"
       - "GrpcSettings:DiscountUrl=http://discount.grpc"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq"
+      - "AuthorizationSettings:AuthorizationUri=http://identityserver"
     depends_on:
       - basketdb
       - rabbitmq
+      - identityserver
     ports:
       - "8001:80"
 
@@ -144,3 +146,24 @@ services:
       - ordering.api
     ports:
       - "8005:80"
+
+  identityserver:
+    container_name: identityserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8015:80"
+
+  aspnetrunbasics:
+    container_name: aspnetrunbasics
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:GatewayAddress=http://ocelotapigateway"
+    depends_on: 
+      - ocelotapigateway
+      - catalog.api
+      - basket.api
+      - discount.api
+      - ordering.api
+    ports: 
+      - "8006:80"

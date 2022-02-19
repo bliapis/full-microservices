@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Aggregator", "ApiG
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{6F4CF322-BF60-46C2-9831-939A432B6C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "Authorization\IdentityServer\IdentityServer.csproj", "{4C4B3F66-0354-4AF7-BA93-0007998A8C8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "Services\Authorization\IdentityServer\IdentityServer.csproj", "{4C4B3F66-0354-4AF7-BA93-0007998A8C8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{74876E6A-4DDD-4C18-8624-02DF4FBAB194}"
 EndProject
