@@ -28,6 +28,7 @@ namespace AspnetRunBasics
         {
             services.AddRazorPages();
 
+            //TODO: Create a bootstrap layer to register that kind of services
             services.AddHttpClient<ICatalogService, CatalogService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
 
