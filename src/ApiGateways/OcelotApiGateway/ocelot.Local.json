@@ -7,7 +7,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8000"
+          "Port": "5000"
         }
       ],
       "UpstreamPathTemplate": "/Catalog",
@@ -20,7 +20,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8000"
+          "Port": "5000"
         }
       ],
       "UpstreamPathTemplate": "/Catalog/{id}",
@@ -32,7 +32,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8000"
+          "Port": "5000"
         }
       ],
       "UpstreamPathTemplate": "/Catalog/GetProductsByCategory/{category}",
@@ -45,11 +45,15 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8001"
+          "Port": "5001"
         }
       ],
       "UpstreamPathTemplate": "/Basket/{username}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/v1/Basket",
@@ -57,11 +61,15 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8001"
+          "Port": "5001"
         }
       ],
       "UpstreamPathTemplate": "/Basket",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/v1/Basket/Checkout",
@@ -69,7 +77,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8001"
+          "Port": "5001"
         }
       ],
       "UpstreamPathTemplate": "/Basket/Checkout",
@@ -80,6 +88,10 @@
         "Period": "3s",
         "PeriodTimespan": 1,
         "Limit": 1
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthKey",
+        "AllowedScopes": []
       }
     },
     // Discount
@@ -89,7 +101,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8002"
+          "Port": "5002"
         }
       ],
       "UpstreamPathTemplate": "/Discount/{productName}",
@@ -101,7 +113,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8002"
+          "Port": "5002"
         }
       ],
       "UpstreamPathTemplate": "/Discount",
@@ -114,7 +126,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8004"
+          "Port": "5004"
         }
       ],
       "UpstreamPathTemplate": "/Order/{userName}",

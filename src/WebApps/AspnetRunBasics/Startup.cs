@@ -1,7 +1,7 @@
+using AspnetRunBasics.HttpHandlers;
 using AspnetRunBasics.Services;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using System;
 
 namespace AspnetRunBasics
@@ -25,43 +26,38 @@ namespace AspnetRunBasics
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
+
             services.AddHttpClient<ICatalogService, CatalogService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
 
             services.AddHttpClient<IBasketService, BasketService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
+                .AddHttpMessageHandler<AuthenticationDelegatingHandler>();
 
             services.AddHttpClient<IOrderService, OrderService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]));
 
-            services.AddHttpClient<IAuthService, AuthService>(c =>
-                c.BaseAddress = new Uri(Configuration["AuthorizationSettings:AuthorizationUri"]));
-
-            services.AddRazorPages();
-
             services.AddHealthChecks()
                 .AddUrlGroup(new Uri(Configuration["ApiSettings:GatewayAddress"]), "Ocelot API Gw", HealthStatus.Degraded);
 
-            services.AddAuthentication(options =>
+            services.AddTransient<AuthenticationDelegatingHandler>();
+
+            services.AddHttpClient("AuthClient", client =>
             {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            })
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+                client.BaseAddress = new Uri(Configuration["AuthorizationSettings:AuthorizationUri"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            });
+
+            services.AddSingleton(new ClientCredentialsTokenRequest
             {
-                options.Authority = Configuration["AuthorizationSettings:AuthorizationUri"];
+                Address = $"{Configuration.GetValue<string>("AuthorizationSettings:AuthorizationUri")}/connect/token",
 
-                options.ClientId = "ecommerceClient";
-                options.ClientSecret = "secret";
-                options.ResponseType = "code";
+                ClientId = "ecommerceClient",
+                ClientSecret = "secret",
 
-                options.Scope.Add("openid");
-                options.Scope.Add("profile");
-
-                options.SaveTokens = true;
-
-                options.GetClaimsFromUserInfoEndpoint = true;
+                Scope = "basketAPI"
             });
         }
 

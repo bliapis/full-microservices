@@ -9,29 +9,31 @@ namespace AspnetRunBasics.Services
 {
     public class BasketService : IBasketService
     {
-        private readonly HttpClient _client;
-        private readonly IAuthService _authService;
+        private readonly HttpClient _httpClient;
 
-        public BasketService(HttpClient client,
-            IAuthService authService)
+        public BasketService(HttpClient httpClient)
         {
-            _client = client ?? throw new ArgumentNullException(nameof(client));
-            _authService = authService ?? throw new ArgumentNullException(nameof(authService));
-
-            Authorize(_client);
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
         public async Task<BasketModel> GetBasket(string userName)
         {
-            var response = await _client.GetAsync($"/Basket/{userName}");
+            var request = new HttpRequestMessage(
+                HttpMethod.Get,
+                $"/Basket/{userName}");
+
+            var response = await _httpClient.SendAsync(
+                    request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCode();
 
             return await response.ReadContentAs<BasketModel>();
         }
 
         public async Task<BasketModel> UpdateBasket(BasketModel model)
         {
-            var response = await _client.PostAsJson($"/Basket", model);
-
+            var response = await _httpClient.PostAsJson($"/Basket", model);
+            
             if (response.IsSuccessStatusCode)
             {
                 return await response.ReadContentAs<BasketModel>();
@@ -44,19 +46,12 @@ namespace AspnetRunBasics.Services
 
         public async Task CheckoutBasket(BasketCheckoutModel model)
         {
-            var response = await _client.PostAsJson($"/Basket/Checkout", model);
-
+            var response = await _httpClient.PostAsJson($"/Basket/Checkout", model);
+            
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Something went wrong when calling api.");
             }
-        }
-
-        private async void Authorize(HttpClient _client)
-        {
-            var token = await _authService.AuthorizeAsync();
-
-            _client.SetBearerToken(token.AccessToken);
         }
     }
 }
