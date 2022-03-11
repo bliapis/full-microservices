@@ -10,16 +10,23 @@ namespace AspnetRunBasics.Services
 {
     public class CatalogService : ICatalogService
     {
-        private readonly HttpClient _client;        
+        private readonly HttpClient _client;
+        private readonly ILogger<CatalogService> _logger;
 
-        public CatalogService(HttpClient client, ILogger<CatalogService> logger)
+        public CatalogService(HttpClient client, 
+            ILogger<CatalogService> logger)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<IEnumerable<CatalogModel>> GetCatalog()
         {
+            _logger.LogError("Teste Log {customErrorLogKey}", 9);
+            _logger.LogInformation("Getting catalog data from url: {url} and custom property : {customProperty}", _client.BaseAddress, 11);
+
             var response = await _client.GetAsync("/Catalog");
+
             return await response.ReadContentAs<List<CatalogModel>>();
         }
 

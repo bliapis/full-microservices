@@ -39,15 +39,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGateway", "ApiGateways\OcelotApiGateway\OcelotApiGateway.csproj", "{5394631B-59D4-45B8-9802-A084F5ABF5C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Aggregator", "ApiGateways\Shopping.Aggregator\Shopping.Aggregator.csproj", "{D97C118A-3470-444E-8477-EAC780BE244A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopping.Aggregator", "ApiGateways\Shopping.Aggregator\Shopping.Aggregator.csproj", "{D97C118A-3470-444E-8477-EAC780BE244A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{6F4CF322-BF60-46C2-9831-939A432B6C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "Services\Authorization\IdentityServer\IdentityServer.csproj", "{4C4B3F66-0354-4AF7-BA93-0007998A8C8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "Services\Authorization\IdentityServer\IdentityServer.csproj", "{4C4B3F66-0354-4AF7-BA93-0007998A8C8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{74876E6A-4DDD-4C18-8624-02DF4FBAB194}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspnetRunBasics", "WebApps\AspnetRunBasics\AspnetRunBasics.csproj", "{3E33C0B3-3708-494C-AD2A-5C46771B90E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging", "BuildingBlocks\Common.Logging\Common.Logging.csproj", "{5FDF9ED6-9ED7-4A4D-B686-6AF97B5AE998}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{3E33C0B3-3708-494C-AD2A-5C46771B90E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E33C0B3-3708-494C-AD2A-5C46771B90E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E33C0B3-3708-494C-AD2A-5C46771B90E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FDF9ED6-9ED7-4A4D-B686-6AF97B5AE998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDF9ED6-9ED7-4A4D-B686-6AF97B5AE998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDF9ED6-9ED7-4A4D-B686-6AF97B5AE998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDF9ED6-9ED7-4A4D-B686-6AF97B5AE998}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +140,7 @@ Global
 		{6F4CF322-BF60-46C2-9831-939A432B6C1F} = {657F6A08-BD85-493F-B3E5-E09A96245522}
 		{4C4B3F66-0354-4AF7-BA93-0007998A8C8F} = {6F4CF322-BF60-46C2-9831-939A432B6C1F}
 		{3E33C0B3-3708-494C-AD2A-5C46771B90E6} = {74876E6A-4DDD-4C18-8624-02DF4FBAB194}
+		{5FDF9ED6-9ED7-4A4D-B686-6AF97B5AE998} = {AEEF5A47-02FE-4AEC-9807-C2070D921C9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60A0AC9C-AA0B-4D15-A646-3775FAD6671B}
